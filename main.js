@@ -1,106 +1,89 @@
-//Constantes
-const Nombre_Tienda = "Café-JS";
-const Tarifa_Envio = 500; 
-const Envio_Gratis = 1000;
+let carrito = [];
 
-//Array menú
-const Menu_cafe = [
-    { id:1, nombre: "Espresso", precio: 1000 },
-    { id:2, nombre: "Cappuccino", precio: 1600 },
-    { id:3, nombre: "Latte", precio: 1300 },
-    { id:4, nombre: "Mocha", precio: 1400 },
+const productos = [
+    { 
+        nombre: "The Legend of Zelda: Breath of the Wild", 
+        genero: "Aventura", 
+        plataforma: "Nintendo Switch",
+        imagen: "/assets/imagenes/zeldabotw.jpg",
+        id:"1"
+    },
+    { 
+        nombre: "God of War", 
+        genero: "Acción", 
+        plataforma: "PlayStation 4",
+        imagen: "/assets/imagenes/gowps4.jpeg",
+        id:"2"
+    },
+    { 
+        nombre: "Halo Infinite", 
+        genero: "Disparos en primera persona", 
+        plataforma: "Xbox Series X",
+        imagen: "/assets/imagenes/HaloInfinitex.jpg",
+        id:"3"
+    },
+    { 
+        nombre: "Minecraft", 
+        genero: "Sandbox", 
+        plataforma: "Multiplataforma",
+        imagen: "/assets/imagenes/minecraft.jpg",
+        id:"4"
+    },
+    { 
+        nombre: "Cyberpunk 2077", 
+        genero: "RPG", 
+        plataforma: "Multiplataforma",
+        imagen: "/assets/imagenes/cyberpunk_2077_PL.jpg",
+        id:"5"
+    }
 ];
 
-//Mostrar menú en consola
-console.log(`--- Bienvenido a ${Nombre_Tienda} ---`);
-console.log("Menú:");
-Menu_cafe.forEach(cafe => {
-    console.log(`ID ${cafe.id}: ${cafe.nombre} - $${cafe.precio}`);
-});
+function mostrarJuegos(productos) {
+    const contenedor = document.getElementById("cards-container");
 
-console.log("---------------------------------");
-//Función para recibir pedido
+    productos.forEach((producto) => {
+        const card = document.createElement("div");
 
-function MenuString(){
-    let menutexto = "";
-    const Nombres_cafes = Menu_cafe.length;
-    
-    for (let i = 0; i < Nombres_cafes; i++){
-        const cafe = Menu_cafe[i];
+        card.innerHTML = `
+        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <h3>${producto.nombre}</h3>
+        <p>Género: ${producto.genero}</p>
+        <p>Plataforma: ${producto.plataforma}</p>
+        <button id="btn-${producto.id}">Agregar al carrito</button>
+        `
+        contenedor.appendChild(card);
 
-        menutexto += `ID ${cafe.id}: ${cafe.nombre} - $${cafe.precio}\n`;
-    }
+        const boton = document.getElementById(`btn-${producto.id}`);
 
-    return menutexto;
-};
-
-function recibirPedido(){
-
-    const menuPrompt = MenuString();
-    let idCafe = 0;
-    let cantidad = 0;
-
-    let entradaValida = false;
-    while(!entradaValida){
-        let entrada = prompt(
-            `Bienvenido a ${Nombre_Tienda}! \n\n` +
-            `Ingrese el ID del café que desea ordenar (1 al 4) \n\n` + 
-            menuPrompt
-        );
-    
-        idCafe = parseInt(entrada);
-
-        const cafeSeleccionado = Menu_cafe.find(cafe => cafe.id === idCafe);
-        if (cafeSeleccionado) {
-            cantidad = parseInt(prompt(`Ha seleccionado ${cafeSeleccionado.nombre}.\nPor favor, ingrese la cantidad deseada:`));
-        
-            if (cantidad > 0){
-                entradaValida = true;
-            } else {
-                alert("La cantidad debe ser mayor a cero. Intente nuevamente.");
-            }
-        } else{
-            alert("ID de café no valido. Por favor ingrese un número del 1 al 4");
+        boton.addEventListener("click", () => {
+            agregarAlCarrito(producto);
+            mostrarCarrito();
+        });
         }
-    }
+    )};
 
-    return { 
-        idCafe: idCafe,
-        cantidad: cantidad
+    mostrarJuegos(productos);
+
+    function agregarAlCarrito(producto) {
+        const productoExistente = carrito.find(item => item.id === producto.id);
+
+        if (productoExistente) {
+            productoExistente.cantidad += 1;
+        } else {
+            producto.cantidad = 1;
+            carrito.push(producto);
+        }
+        
     };
-}
 
-//Función para calcular total
-function calcularTotal(pedido){
-    const cafeElegido = Menu_cafe.find(cafe => cafe.id === pedido.idCafe);
-    let subtotal = cafeElegido.precio * pedido.cantidad;
+    function mostrarCarrito(){
+        const contenedorCarrito = document.getElementById("carrito-container");
+        contenedorCarrito.innerHTML = "";
 
-    let totalconEnvio = subtotal + Tarifa_Envio;
-    console.log(`Subtotal: $${subtotal}. Se agrega envío de $${Tarifa_Envio}. Total: $${totalconEnvio}.`);
-    return totalconEnvio;
-}
+        carrito.forEach(item => {
+            contenedorCarrito.innerHTML += `
+            <p>${item.nombre}${item.cantidad}</p>`
+        });
+    };
 
-//Funcion de Salida
-function mostrarResumen(pedido, total){
-    const cafe = Menu_cafe.find(cafe => cafe.id === pedido.idCafe);
-    const nombreCafe = cafe ? cafe.nombre : "Error";
 
-    console.log("\n--- Resumen del Pedido ---");
-    console.log(`Usted ha pedido ${pedido.cantidad} unidad(es) de ${nombreCafe}.`);
-    console.log(`Total a pagar: $${total}. Gracias por su compra en ${Nombre_Tienda}!`);
-
-    alert(
-        `Pedido Registrado\n\n` +
-        `Articulo: ${nombreCafe} (x${pedido.cantidad})` +
-        `Total a pagar: $${total}\n\n` +
-        `Gracias por su compra en ${Nombre_Tienda}!`
-    );
-}
-
-const pedido = recibirPedido();
-console.log("Procesando su pedido...", pedido);
-
-const costoFinal = calcularTotal(pedido);
-console.log("Costo final calculado:", costoFinal);
-
-mostrarResumen(pedido, costoFinal);
