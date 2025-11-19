@@ -1,19 +1,13 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 body {
     background: #111;
     color: #fff;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 0px;
 }
 
 header {
-    background-color: #222;
+    background: #222;
     padding: 20px;
     text-align: center;
     font-size: 28px;
@@ -22,8 +16,67 @@ header {
 
 #carrito {
     background: #1a1a1a;
+    width: 500px;
     margin: 20px;
-    padding: 15px;
+    padding: 20px;
     border-radius: 10px;
-    border: 2px solid #333;
+    border: 1px solid #333;
+}
+
+
+#carrito-container p {
+    background: #333;
+    padding: 8px;
+    border-radius: 6px;
+    margin: 5px 0;
+    padding: 10px;
+}
+
+#cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+#titulo-juegos {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 26px;
+}
+
+
+#cards-container div {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+#cards-container div:hover {
+    transform: scale(1.05);
+}
+
+#cards-container img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #ffbf00;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #ffdd57;
 }
