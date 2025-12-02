@@ -64,6 +64,15 @@ function mostrarJuegos(productos) {
         boton.addEventListener("click", () => {
             agregarAlCarrito(producto);
             mostrarCarrito();
+            Toastify({
+                text: "Producto agregado al carrito",
+                gravity: "bottom",
+                position: "right",
+                style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                duration: 3000
+            }).showToast();
         });
         }
     )};
@@ -102,7 +111,27 @@ function mostrarCarrito(){
     `;
     
     const botonVaciar = divResumen.querySelector('#vaciarCarritoBtn');
-    botonVaciar.addEventListener('click', vaciarCarrito);
+    botonVaciar.addEventListener('click', () => {
+        Swal.fire({
+            title: "¿Desea vaciar el carrito?",
+            theme: "dark",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ffbf00",
+            cancelButtonColor: "rgba(53, 52, 52, 1)",
+            confirmButtonText: "Vaciar"
+        }).then((result) => {
+            vaciarCarrito();
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Carrito vaciado",
+                    theme: "dark",
+                    text: "Tus productos han sido eliminados del carrito.",
+                    icon: "success"
+                });
+            }
+        });
+    });
     contenedorCarrito.appendChild(divResumen);
 };
 
