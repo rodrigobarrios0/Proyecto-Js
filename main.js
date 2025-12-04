@@ -5,7 +5,7 @@ const productos = [
         nombre: "The Legend of Zelda: Breath of the Wild", 
         genero: "Aventura", 
         plataforma: "Nintendo Switch",
-        imagen: "/assets/imagenes/zeldabotw.jpg",
+        imagen: "./assets/imagenes/zeldabotw.jpg",
         precio: "$19.99",
         id:"1"
     },
@@ -13,7 +13,7 @@ const productos = [
         nombre: "God of War", 
         genero: "Acción", 
         plataforma: "PlayStation 4",
-        imagen: "/assets/imagenes/gowps4.jpeg",
+        imagen: "./assets/imagenes/gowps4.jpeg",
         precio: "$24.99",
         id:"2"
     },
@@ -21,7 +21,7 @@ const productos = [
         nombre: "Halo Infinite", 
         genero: "Disparos en primera persona", 
         plataforma: "Xbox Series X",
-        imagen: "/assets/imagenes/HaloInfinitex.jpg",
+        imagen: "./assets/imagenes/HaloInfinitex.jpg",
         precio: "$9.99",
         id:"3"
     },
@@ -29,7 +29,7 @@ const productos = [
         nombre: "Minecraft", 
         genero: "Sandbox", 
         plataforma: "Multiplataforma",
-        imagen: "/assets/imagenes/minecraft.jpg",
+        imagen: "./assets/imagenes/minecraft.jpg",
         precio: "$9.99",
         id:"4"
     },
@@ -37,7 +37,7 @@ const productos = [
         nombre: "Cyberpunk 2077", 
         genero: "RPG", 
         plataforma: "Multiplataforma",
-        imagen: "/assets/imagenes/cyberpunk_2077_PL.jpg",
+        imagen: "./assets/imagenes/cyberpunk_2077_PL.jpg",
         precio: "$59.99",
         id:"5"
     }
