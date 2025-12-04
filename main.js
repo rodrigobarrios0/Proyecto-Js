@@ -106,7 +106,7 @@ function mostrarCarrito(){
             cancelButtonColor: "rgba(53, 52, 52, 1)",
             confirmButtonText: "Vaciar"
         }).then((result) => {
-            vaciarCarrito();
+            
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Carrito vaciado",
@@ -115,6 +115,7 @@ function mostrarCarrito(){
                     confirmButtonColor: "#ffbf00",
                     icon: "success"
                 });
+                vaciarCarrito();
             }
         });
     });
