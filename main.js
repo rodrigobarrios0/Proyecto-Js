@@ -21,7 +21,7 @@ const productos = [
         nombre: "Halo Infinite", 
         genero: "Disparos en primera persona", 
         plataforma: "Xbox Series X",
-        imagen: "./assets/imagenes/HaloInfinitex.jpg",
+        imagen: "./assets/imagenes/Haloinfinitex.jpg",
         precio: "$9.99",
         id:"3"
     },
