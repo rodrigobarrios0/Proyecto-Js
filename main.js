@@ -1,47 +1,4 @@
-let carrito = [];
-
-const productos = [
-    { 
-        nombre: "The Legend of Zelda: Breath of the Wild", 
-        genero: "Aventura", 
-        plataforma: "Nintendo Switch",
-        imagen: "./assets/imagenes/zeldabotw.jpg",
-        precio: "$19.99",
-        id:"1"
-    },
-    { 
-        nombre: "God of War", 
-        genero: "Acción", 
-        plataforma: "PlayStation 4",
-        imagen: "./assets/imagenes/gowps4.jpeg",
-        precio: "$24.99",
-        id:"2"
-    },
-    { 
-        nombre: "Halo Infinite", 
-        genero: "Disparos en primera persona", 
-        plataforma: "Xbox Series X",
-        imagen: "./assets/imagenes/Haloinfinitex.jpg",
-        precio: "$9.99",
-        id:"3"
-    },
-    { 
-        nombre: "Minecraft", 
-        genero: "Sandbox", 
-        plataforma: "Multiplataforma",
-        imagen: "./assets/imagenes/minecraft.jpg",
-        precio: "$9.99",
-        id:"4"
-    },
-    { 
-        nombre: "Cyberpunk 2077", 
-        genero: "RPG", 
-        plataforma: "Multiplataforma",
-        imagen: "./assets/imagenes/cyberpunk_2077_PL.jpg",
-        precio: "$59.99",
-        id:"5"
-    }
-];
+const carrito = [];
 
 function mostrarJuegos(productos) {
     const contenedor = document.getElementById("cards-container");
@@ -78,7 +35,21 @@ function mostrarJuegos(productos) {
         }
     )};
 
-mostrarJuegos(productos);
+const rutaProductos = "./assets/items/juegos.JSON";
+
+const obtenerProductos = async () => {
+    try {
+        const resp = await fetch(rutaProductos);
+        const data = await resp.json();
+
+        mostrarJuegos(data);
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
+};
+
+obtenerProductos();
+
 
 function agregarAlCarrito(producto) {
     const productoExistente = carrito.find(item => item.id === producto.id);
@@ -108,9 +79,22 @@ function mostrarCarrito(){
     divResumen.innerHTML = `
         <h3>Total: $${totalCompra}</h3>
         <button id="vaciarCarritoBtn">Vaciar Carrito</button>
-        <button>Comprar</button>
+        <button id="compra">Comprar</button>
     `;
     
+    const botonComprar = divResumen.querySelector(`#compra`);
+    botonComprar.addEventListener('click', () => {
+        Swal.fire({
+            position: "center",
+            theme: "dark",
+            icon: "success",
+            title: "Tu compra ha sido realizada con éxito",
+            showConfirmButton: false,
+            timer: 1500
+        });
+        vaciarCarrito();
+    });
+
     const botonVaciar = divResumen.querySelector('#vaciarCarritoBtn');
     botonVaciar.addEventListener('click', () => {
         Swal.fire({
