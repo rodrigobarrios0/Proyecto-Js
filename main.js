@@ -69,7 +69,8 @@ function mostrarJuegos(productos) {
                 gravity: "bottom",
                 position: "right",
                 style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                background: "linear-gradient(to right, #1c1f1eff, #272525ff)",
+                border: "2px solid #473c1aff",
                 },
                 duration: 3000
             }).showToast();
@@ -127,6 +128,7 @@ function mostrarCarrito(){
                     title: "Carrito vaciado",
                     theme: "dark",
                     text: "Tus productos han sido eliminados del carrito.",
+                    confirmButtonColor: "#ffbf00",
                     icon: "success"
                 });
             }
